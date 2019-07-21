@@ -32,6 +32,16 @@ npm start
 
 Open: http://localhost:3100
 
-Admin user:         `admin` / `admin@123`
+Admin user: `admin` / `admin@123`
 
-Demo user:   `demo` / `demo@123`
+Demo user: `demo` / `demo@123`
+
+# Screenshots
+
+<img src="screenshots/login.png" width="30%"/> <img src="screenshots/register.png" width="30%"/>
+
+<img src="screenshots/list-medical-conditions.png" width="30%"/> <img src="screenshots/update-medical-condition.png" width="30%"/>
+
+<img src="screenshots/list-menus.png" width="30%"/> <img src="screenshots/update-menu.png" width="30%"/>
+
+<img src="screenshots/collection.png" width="30%"/> <img src="screenshots/search.png" width="30%"/>
