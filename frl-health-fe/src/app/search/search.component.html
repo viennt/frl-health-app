@@ -1,0 +1,45 @@
+<app-top-bar [page]="'User'"
+             [navigations]="[
+               {name: 'My collection', url: '/collection', active: false},
+               {name: 'Search', url: '/search', active: true}
+             ]">
+</app-top-bar>
+
+<!-- Menu list -->
+<div class="bg-white w-full">
+  <div class="mt-8">
+    <input id="name"
+           name="name"
+           (keyup)="onSearchMenus($event.target)"
+           type="text"
+           placeholder="Search for menus..."
+           class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
+  </div>
+  <div *ngIf="menus && menus.length" class="mt-4">
+    <div *ngFor="let menu of menus"
+         class="bg-white mx-auto px-4 py-2 mb-2 border border-solid border-gray-300 rounded-lg overflow-hidden flex justify-between">
+      <div class="w-1/2"
+           [routerLink]="['/menu', menu.id]"
+           [queryParams]="{isAbleToAdd: true}">
+        {{ menu.name || '-' }}
+      </div>
+      <div class="flex-grow px-2"
+           [routerLink]="['/menu', menu.id]"
+           [queryParams]="{isAbleToAdd: true}">
+        {{ menu.quantity || '-' }}
+      </div>
+      <button class="bg-white hover:bg-gray-200 text-xs font-bold px-2"
+              (click)="onClickAddMenu(menu.id)">
+        <fa-icon [icon]="faPlus"></fa-icon>
+      </button>
+    </div>
+  </div>
+  <div *ngIf="menus && !menus.length" class="mt-32 px-10 text-2xl text-center text-gray-400 font-bold">
+    There are no menus matching for query
+  </div>
+  <div *ngIf="!menus" class="mt-16 text-6xl text-center text-green-200">
+    <fa-icon [icon]="faCircleNotch" [spin]="true"></fa-icon>
+  </div>
+</div>
+
+<swal #notify title="Ops" type="info"></swal>

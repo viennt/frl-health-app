@@ -1,0 +1,38 @@
+<app-top-bar [page]="'User'"
+             [navigations]="[
+               {name: 'My collection', url: '/collection', active: true},
+               {name: 'Search', url: '/search', active: false}
+             ]">
+</app-top-bar>
+
+<!-- Menu list -->
+<div class="bg-white w-full">
+  <div *ngIf="menus && menus.length" class="mt-8">
+    <div *ngFor="let menu of menus"
+         class="bg-white mx-auto px-4 py-2 mb-2 border border-solid border-gray-300 rounded-lg overflow-hidden flex justify-between">
+      <div class="w-1/2"
+           [routerLink]="['/menu', menu.id]"
+           [queryParams]="{isAbleToRemove: true}">
+        {{ menu.name || '-' }}
+      </div>
+      <div class="flex-grow px-2"
+           [routerLink]="['/menu', menu.id]"
+           [queryParams]="{isAbleToRemove: true}">
+        {{ menu.quantity || '-' }}
+      </div>
+      <button class="bg-white hover:bg-gray-200 text-xs font-bold px-2"
+              [swal]="{ title: 'Are you sure?\nThis action cannot be undo.', type: 'error', showCancelButton: true, confirmButtonText: 'Delete', confirmButtonColor: '#f56565' }"
+              (confirm)="onClickRemoveMenu(menu.id)">
+        <fa-icon [icon]="faTimes"></fa-icon>
+      </button>
+    </div>
+  </div>
+  <div *ngIf="menus && !menus.length" class="mt-32 px-10 text-2xl text-center text-gray-400 font-bold">
+    There are no menus.<br/>Click search tab to add more.
+  </div>
+  <div *ngIf="!menus" class="mt-16 text-6xl text-center text-green-200">
+    <fa-icon [icon]="faCircleNotch" [spin]="true"></fa-icon>
+  </div>
+</div>
+
+<swal #notify title="Ops" type="info"></swal>
