@@ -1,0 +1,4 @@
+[build]
+base = "frl-health-fe"
+publish = "dist/"
+command = "yarn build"

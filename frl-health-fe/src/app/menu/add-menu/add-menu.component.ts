@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { SwalComponent } from '@sweetalert2/ngx-sweetalert2';
 import { faArrowLeft, faCheck, faCheckSquare, faSquare } from '@fortawesome/free-solid-svg-icons';
-import { SERVER_URL } from '../../../constants';
+import {askForServer, SERVER_URL} from '../../../constants';
 
 @Component({
   selector: 'app-add-menu',
@@ -89,6 +89,9 @@ export class AddMenuComponent implements OnInit {
         }
       })
       .catch(error => {
+        if (error && error.statusText === 'Unknown Error') {
+          askForServer(SERVER_URL);
+        }
         this.notify.title = error;
         this.notify.show();
       });

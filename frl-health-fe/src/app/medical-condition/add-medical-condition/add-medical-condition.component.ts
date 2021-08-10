@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { SwalComponent } from '@sweetalert2/ngx-sweetalert2';
 import { faArrowLeft, faCheck, faTimes } from '@fortawesome/free-solid-svg-icons';
-import { SERVER_URL } from '../../../constants';
+import { askForServer, SERVER_URL } from '../../../constants';
 
 @Component({
   selector: 'app-add-medical-condition',
@@ -102,6 +102,9 @@ export class AddMedicalConditionComponent implements OnInit {
         }
       })
       .catch(error => {
+        if (error && error.statusText === 'Unknown Error') {
+          askForServer(SERVER_URL);
+        }
         this.notify.title = error;
         this.notify.show();
       });

@@ -2,7 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { SwalComponent } from '@sweetalert2/ngx-sweetalert2';
-import { SERVER_URL } from '../../constants';
+import { askForServer, SERVER_URL } from '../../constants';
 
 @Component({
   selector: 'app-register',
@@ -58,6 +58,9 @@ export class RegisterComponent implements OnInit {
         }
       })
       .catch(error => {
+        if (error && error.statusText === 'Unknown Error') {
+          askForServer(SERVER_URL);
+        }
         this.notify.title = error;
         this.notify.show();
       });

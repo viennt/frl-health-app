@@ -2,7 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { faPencilAlt, faPlus, faTimes, faCircleNotch } from '@fortawesome/free-solid-svg-icons';
 import { SwalComponent } from '@sweetalert2/ngx-sweetalert2';
-import { SERVER_URL } from '../../../constants';
+import { askForServer, SERVER_URL } from '../../../constants';
 
 @Component({
   selector: 'app-list-menu',
@@ -63,6 +63,9 @@ export class ListMenuComponent implements OnInit {
         }
       })
       .catch(error => {
+        if (error && error.statusText === 'Unknown Error') {
+          askForServer(SERVER_URL);
+        }
         this.notify.title = error;
         this.notify.show();
       });
